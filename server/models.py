@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Date, Boolean, BigInteger, Text
-from database import Base
+from server.database import Base
 
 class TransportRecord(Base):
     __tablename__ = "transport_records"

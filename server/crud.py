@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import TransportRecord
+from server.models import TransportRecord
 
 def create_record(db: Session, data):
     record = TransportRecord(**data.dict())
