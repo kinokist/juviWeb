@@ -373,11 +373,17 @@
     <div class="section" id="sec-search">
       <div class="search-wrap">
         <input type="text" id="sq" placeholder="업체·출발지·항목 검색" oninput="doSearch()">
+      </div>
+      <div class="search-wrap">
+        매출/매입
         <select id="st" onchange="doSearch()">
           <option value="">전체</option>
           <option value="매출">매출</option>
           <option value="매입">매입</option>
         </select>
+      </div>
+      <div class="search-wrap">
+        매출증빙
         <select id="tax" onchange="doSearch()">
           <option value="">전체</option>
           <option value="수신">수신</option>
