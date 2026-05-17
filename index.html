@@ -561,7 +561,10 @@ function serverToLocal(r, fallbackIdx) {
     '출발지': r['출발지'] || r.from_place || r.origin || '',
     '목적지': r['목적지'] || r.to_place || r.destination || '',
     '매출증빙': r['매출증빙'] || r.proof || r.proof_type || '',
-    '전자세금계산서 수신여부': r['전자세금계산서 수신여부'] || r.etax || r.tax_invoice_received || '',
+    '전자세금계산서 수신여부': r['전자세금계산서 수신여부']     || r.etax 
+    || (typeof r.tax_invoice_received === 'boolean' 
+        ? (r.tax_invoice_received ? '수신' : '미수신') 
+        : ''),
     '단가': r['단가'] || r.price || r.amount || r.unit_price || 0,
     '업체명': r['업체명'] || r.company || r.vendor || r.company_name || '',
     '기타': r['기타'] || r.note || '',
@@ -591,7 +594,10 @@ function localToServer(r) {
     origin: r['출발지'],
     destination: r['목적지'],
     proof_type: r['매출증빙'],
-    tax_invoice_received: r['전자세금계산서 수신여부'] === 'Y',
+    tax_invoice_received: 
+          r['전자세금계산서 수신여부'] === true ||
+      r['전자세금계산서 수신여부'] === 'Y' ||
+      r['전자세금계산서 수신여부'] === '수신',
     unit_price: Number(r['단가']) || 0,
     company_name: r['업체명'] || "",
     note: r['기타'] || ""
