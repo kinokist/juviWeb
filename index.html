@@ -219,7 +219,7 @@
     <button class="nav-btn" onclick="showTab('export')"><i class="ti ti-download"></i>내보내기</button>
     <button class="nav-btn" onclick="showTab('settings')"><i class="ti ti-settings"></i>설정</button>
   </div>
-  
+
   <!-- Sections -->
   <div class="sections">
 
@@ -377,6 +377,11 @@
           <option value="">전체</option>
           <option value="매출">매출</option>
           <option value="매입">매입</option>
+        </select>
+        <select id="tax" onchange="doSearch()">
+          <option value="">전체</option>
+          <option value="수신">수신</option>
+          <option value="미수신">미수신</option>
         </select>
       </div>
       <div class="form-row" style="margin-bottom:12px">
@@ -876,18 +881,20 @@ function startEdit() {
 function doSearch() {
   const q    = (document.getElementById('sq').value || '').toLowerCase();
   const t    = document.getElementById('st').value;
+  const tax  = document.getElementById('tax').value;
   const from = document.getElementById('sd-from').value;
   const to   = document.getElementById('sd-to').value;
   const el   = document.getElementById('search-list');
-  if (!q && !t && !from && !to) {
+  if (!q && !t && !from && !to && !tax ) {
     el.innerHTML = '<div class="empty"><i class="ti ti-search"></i><p>검색어를 입력하세요</p></div>';
     return;
   }
   const res = records.filter(r => {
     const mq = !q || ['업체명','출발지','목적지','사용앱','매출/매입항목','기타'].some(k => (r[k] || '').toLowerCase().includes(q));
     const mt = !t || r['매출/매입'] === t;
+    const mtax = !tax || r['전자세금계산서 수신여부'] === tax;
     const d  = (r['날짜'] || '').slice(0, 10);
-    return mq && mt && (!from || d >= from) && (!to || d <= to);
+    return mq && mt && mtax && (!from || d >= from) && (!to || d <= to);
   });
   el.innerHTML = res.length
     ? res.map(r => recCardHTML(r, records.indexOf(r))).join('')
