@@ -36,3 +36,17 @@ def create(data: schemas.TransportCreate, db: Session = Depends(get_db)):
 @app.get("/records")
 def read(db: Session = Depends(get_db)):
     return crud.get_records(db)
+
+@app.delete("/records/{id}")
+def delete_record(id: int, db: Session = Depends(get_db)):
+    record = db.query(models.TransportRecord)\
+               .filter(models.TransportRecord.id == id)\
+               .first()
+
+    if not record:
+        raise HTTPException(status_code=404, detail="Record not found")
+
+    db.delete(record)
+    db.commit()
+
+    return {"message": "deleted"}
