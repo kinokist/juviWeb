@@ -5,7 +5,6 @@ class TransportRecord(Base):
     __tablename__ = "transport_records"
 
     id = Column(Integer, primary_key=True, index=True)
-    record_no = Column(Integer)
     transport_date = Column(Date)
     app_name = Column(String)
     trade_type = Column(String)

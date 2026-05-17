@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import date
 
 class TransportCreate(BaseModel):
-    record_no: int
     transport_date: date
     app_name: str
     trade_type: str
