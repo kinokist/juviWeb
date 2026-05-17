@@ -38,4 +38,5 @@ def read(db: Session = Depends(get_db)):
     return crud.get_records(db)
 
 @app.delete("/records/{id}")
+def delete_record(id: int, db: Session = Depends(get_db)):
     return crud.delete_record(db, id)
