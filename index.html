@@ -568,23 +568,32 @@ function serverToLocal(r, fallbackIdx) {
   };
 }
 
+function formatDate(d) {
+  if (!d) return null;
+
+  return d
+    .replace(/\./g, '-')
+    .replace(/\//g, '-')
+    .substring(0, 10);
+}
+
 /**
  * 앱 내부 레코드 → 서버 POST 페이로드
  * 서버 schemas.TransportCreate 필드명에 맞게 조정
  */
 function localToServer(r) {
   return {
-    '날짜':       r['날짜'],
-    '사용앱':     r['사용앱'],
-    '매출/매입':  r['매출/매입'],
-    '매출/매입항목': r['매출/매입항목'],
-    '출발지':     r['출발지'],
-    '목적지':     r['목적지'],
-    '매출증빙':   r['매출증빙'],
-    '전자세금계산서 수신여부': r['전자세금계산서 수신여부'],
-    '단가':       Number(r['단가']) || 0,
-    '업체명':     r['업체명'],
-    '기타':       r['기타'],
+    transport_date: formatDate(r['날짜']),                 // "2025-04-26"
+    app_name: r['사용앱'],
+    trade_type: r['매출/매입'],
+    trade_item: r['매출/매입항목'],
+    origin: r['출발지'],
+    destination: r['목적지'],
+    proof_type: r['매출증빙'],
+    tax_invoice_received: r['전자세금계산서 수신여부'] === 'Y',
+    unit_price: Number(r['단가']) || 0,
+    company_name: r['업체명'] || "",
+    note: r['기타'] || ""
   };
 }
 
@@ -769,6 +778,7 @@ async function addRecord() {
   setLoading(true);
   try {
     const saved = await postRecord(localToServer(r));
+    console.log(JSON.stringify(saved, null, 2));
     // 서버가 저장된 객체를 반환하면 그걸 사용, 아니면 로컬 데이터 사용
     const localR = serverToLocal(saved || r, records.length);
     records.push(localR);
