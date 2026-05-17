@@ -552,21 +552,22 @@ async function deleteRecordApi(id) {
  */
 function serverToLocal(r, fallbackIdx) {
   return {
-    _id: r.id || r._id || Date.now() + fallbackIdx,   // 서버 ID (삭제에 사용)
+    _id: r.id || r._id || Date.now() + fallbackIdx,
     _serverId: r.id || r._id || null,
-    '날짜':       r['날짜']       || r.date        || '',
-    '사용앱':     r['사용앱']     || r.app         || '',
-    '매출/매입':  r['매출/매입']  || r.type        || '',
-    '매출/매입항목': r['매출/매입항목'] || r.item   || '',
-    '출발지':     r['출발지']     || r.from_place  || '',
-    '목적지':     r['목적지']     || r.to_place    || '',
-    '매출증빙':   r['매출증빙']   || r.proof       || '',
-    '전자세금계산서 수신여부': r['전자세금계산서 수신여부'] || r.etax || '',
-    '단가':       r['단가']       || r.price       || r.amount || 0,
-    '업체명':     r['업체명']     || r.company     || r.vendor || '',
-    '기타':       r['기타']       || r.note        || '',
+    '날짜': r['날짜'] || r.date || r.transport_date || '',
+    '사용앱': r['사용앱'] || r.app || r.app_name || '',
+    '매출/매입': r['매출/매입'] || r.type || r.trade_type || '',
+    '매출/매입항목': r['매출/매입항목'] || r.item || r.trade_item || '',
+    '출발지': r['출발지'] || r.from_place || r.origin || '',
+    '목적지': r['목적지'] || r.to_place || r.destination || '',
+    '매출증빙': r['매출증빙'] || r.proof || r.proof_type || '',
+    '전자세금계산서 수신여부': r['전자세금계산서 수신여부'] || r.etax || r.tax_invoice_received || '',
+    '단가': r['단가'] || r.price || r.amount || r.unit_price || 0,
+    '업체명': r['업체명'] || r.company || r.vendor || r.company_name || '',
+    '기타': r['기타'] || r.note || '',
   };
 }
+
 
 function formatDate(d) {
   if (!d) return null;
