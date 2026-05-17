@@ -30,7 +30,7 @@ def get_db():
 
 @app.post("/records")
 def create(data: schemas.TransportCreate, db: Session = Depends(get_db)):
-     print("받은 데이터:", data)
+    print("받은 데이터:", data)
     return crud.create_record(db, data)
 
 @app.get("/records")
