@@ -211,6 +211,15 @@
   </div>
   <div class="loading-bar" id="loading-bar"></div>
 
+    <!-- Bottom Nav -->
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab('home')"><i class="ti ti-home"></i>홈</button>
+    <button class="nav-btn" onclick="showTab('add')"><i class="ti ti-plus"></i>등록</button>
+    <button class="nav-btn" onclick="showTab('search')"><i class="ti ti-search"></i>검색</button>
+    <button class="nav-btn" onclick="showTab('export')"><i class="ti ti-download"></i>내보내기</button>
+    <button class="nav-btn" onclick="showTab('settings')"><i class="ti ti-settings"></i>설정</button>
+  </div>
+  
   <!-- Sections -->
   <div class="sections">
 
@@ -219,15 +228,6 @@
       <div id="api-status-badge" class="api-status checking">
         <i class="ti ti-circle"></i> 서버 연결 확인 중...
       </div>
-
-  <!-- Bottom Nav -->
-  <div class="nav">
-    <button class="nav-btn active" onclick="showTab('home')"><i class="ti ti-home"></i>홈</button>
-    <button class="nav-btn" onclick="showTab('add')"><i class="ti ti-plus"></i>등록</button>
-    <button class="nav-btn" onclick="showTab('search')"><i class="ti ti-search"></i>검색</button>
-    <button class="nav-btn" onclick="showTab('export')"><i class="ti ti-download"></i>내보내기</button>
-    <button class="nav-btn" onclick="showTab('settings')"><i class="ti ti-settings"></i>설정</button>
-  </div>
 
       <div class="stats">
         <div class="stat"><div class="stat-label">전체 건수</div><div class="stat-val blue" id="s-total">0</div></div>
