@@ -491,8 +491,7 @@ async function fetchRecords() {
     const res = await fetch(`${API_BASE}/records`, {
       method: 'GET',
       headers: { 'Accept': 'application/json' }
-    }).then(r => r.json())
-  .then(console.log);
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
 
